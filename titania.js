@@ -1,9 +1,9 @@
 //TITANIA-JS.ORG | WRITTEN BY HARVEY COOMBS |  2016 (ORIGINAL) - 2022 | HARVEYCOOMBS.COM
 var dom = {
 	select: function (selector=null) {
-
+	    
 	    let qsa = document.querySelectorAll(selector);
-
+	    
 	    if (qsa != null && qsa != undefined && qsa.length > 0) {
     	    if (qsa.length == 1) {
         		let qs = document.querySelector(selector);
@@ -12,12 +12,12 @@ var dom = {
     			return selection;
     	    } else {
     	        var list = [];
-
+    	        
     	        qsa.forEach(elem => {
         			let selection = new TitaniaElement(elem);
         			list.push(selection);
     	        });
-
+    	        
     	        return list;
     	    }
 	    } else {
@@ -29,7 +29,7 @@ var dom = {
 	ignore: function (event, callback) {
 		if (event == null) {
 			var all = getEventListeners(document);
-
+			
 			all.forEach(ev => {
 				document.removeEventListener(ev);
 			});
@@ -53,7 +53,7 @@ var dom = {
 
 				(document.body).append(inline);
 				return inline;
-
+				
 			case "element":
 				try {
 					if (typeof content === "object") {
@@ -134,11 +134,11 @@ const calc = {
 const http = {
 	post: function (target) {
 		let postr = new XMLHttpRequest();
-
+		
 		postr.open("POST", target, false);
 		postr.setRequestHeader("Access-Control-Allow-Origin", "*");
 		postr.send();
-
+		
 		return {
 			body: postr.responseText,
 			status: postr.status
@@ -146,7 +146,7 @@ const http = {
 	},
 	get: function (target) {
 		let getr = new XMLHttpRequest();
-
+		
 		getr.open("GET", target, false);
 		getr.setRequestHeader("Access-Control-Allow-Origin", "*");
 		getr.send();
@@ -173,7 +173,7 @@ Object.defineProperty(Object.prototype, 'fuse', {
 
 		return target;
 	}
-});
+}); 
 
 Object.defineProperty(Object.prototype, 'compare', {
 	value: function (subject=[]) {
@@ -193,7 +193,7 @@ Object.defineProperty(Object.prototype, 'compare', {
 
 	return { total: total, common: matches };
 	}
-});
+});   
 
 class TitaniaElement {
 	constructor (em) {
@@ -210,7 +210,7 @@ class TitaniaElement {
 		this.ignore = function (event=null, callback=null) {
 		    if (event == null) {
 		        var all = getEventListeners(em);
-
+		        
 		        all.forEach(ev => {
 		            em.removeEventListener(ev);
 		        });
@@ -260,7 +260,7 @@ class TitaniaElement {
 			if (val != null) {
 			    em.setAttribute(key, val);
 			}
-
+			
 			return em.getAttribute(key);
 		};
 		this.has = function (classes) {
@@ -282,9 +282,22 @@ class TitaniaElement {
 			copy.outerHTML = node.outerHTML;
 			return copy;
 		};
-		get parent() {
-			return (this.pure).parentNode;
-		};
+	}
+
+	get parent() {
+		return (this.pure).parentNode;
+	}
+
+	get origin() {
+		var target = (this.pure).parentNode;
+		var all = [];
+
+		while (target.parentNode != null || target.parentNode != undefined) {
+			all.push(target);
+			target = target.parentNode;
+		}
+
+		return all;
 	}
 }
 
@@ -294,15 +307,15 @@ class Series {
 		this.add = {
 			list: this[0],
 			first: function (subject) {
-				let pair = (subject instanceof Pair) ? subject : (typeof subject === "object" && !(subject instanceof Pair)) ? new Pair(subject[0], subject[1]) : null;
+				let pair = (subject instanceof Pair) ? subject : (typeof subject === "object" && !(subject instanceof Pair)) ? new Pair(subject[0], subject[1]) : null; 
 
 				if (pair != null) {
 					this[0].push(this[0][this[0].length]);
-
+						
 					for (var j = 0; j < this[0].length; j++) {
 						let item = (j == 0) ? subject : this[0][j + 1];
 						this[0][j] = item;
-					}
+					}					
 				}
 
 				return pair;
@@ -349,7 +362,7 @@ class Series {
 	}
 }
 
-class Pair {
+class Pair /*extends Series*/ {
 	constructor (key, val) {
 		this.key = key;
 		this.val = val;
