@@ -281,7 +281,10 @@ class TitaniaElement {
 			var copy = document.createElement(this.tag);
 			copy.outerHTML = node.outerHTML;
 			return copy;
-		}
+		};
+		get parent() {
+			return (this.pure).parentNode;
+		};
 	}
 }
 
