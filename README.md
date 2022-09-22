@@ -21,9 +21,8 @@ For learning Titania, please see the [Documentation](http://titania-js.org/docs)
 
 ## Examples
 
-##Adding classes to DOM elements
-`
-//Native JavaScript
+## Adding classes to DOM elements
+`//Native JavaScript
 var box = document.querySelector("#box");
 
 box.addEventListener("click", () => {
