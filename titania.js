@@ -131,6 +131,24 @@ const calc = {
 	}
 };
 
+const to = {
+    json: JSON.parse,
+    string: function (subject) {
+        switch (typeof subject) {
+            case "object":
+                return JSON.stringify(subject);
+
+            case "string":
+                return subject;
+
+            default:
+                return subject.toString();
+        }
+    },
+    int: parseInt,
+    float: parseFloat
+}
+
 const http = {
 	post: function (target) {
 		let postr = new XMLHttpRequest();
