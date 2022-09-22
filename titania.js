@@ -147,7 +147,7 @@ const to = {
     },
     int: parseInt,
     float: parseFloat
-}
+};
 
 const http = {
 	post: function (target) {
