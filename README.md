@@ -14,7 +14,7 @@ Additionally, Titania aims to limit the deprecation of features, to ensure the s
 
 ### I'm sold. How do I use/learn Titania
 You can download Titania, at any time, from [this repository](https://github.com/harveycoombs/titania/), or from [titania-js.org](http://titania-js.org/).
-Alternatively, you can include the following script tag in your project.
+Alternatively, you can include the following script tag in your project:<br/>
 `<script src="http://titania-js.org/releases/latest/titania.js" type="text/javascript" defer></script>`
 
 For learning Titania, please see the [Documentation](http://titania-js.org/docs).
