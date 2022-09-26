@@ -12,7 +12,7 @@ Titania provides a platform to develop concise & effective JavaScript. It also p
 Titania includes various useful tools & routines for convenience. Other libraries do not include said features & are often provably slower than Titania.
 Additionally, Titania aims to limit the deprecation of features, to ensure the stability of those who include the latest version in their projects.
 
-### I'm sold. How do I use/learn Titania
+### I'm sold! How do I use/learn Titania
 You can download Titania, at any time, from [this repository](https://github.com/harveycoombs/titania/), or from [titania-js.org](http://titania-js.org/).
 Alternatively, you can include the following script tag in your project:<br/>
 `<script src="http://titania-js.org/releases/latest/titania.js" type="text/javascript" defer></script>`
