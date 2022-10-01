@@ -1,7 +1,7 @@
 /*
-	Titania.JS, The multi-faceted & nimble JavaScript library
-	Written by Harvey Coombs
-	2016-2022
+	Titania.JS		The multi-faceted & nimble JavaScript library
+	Version 1.9.3.		Written by Harvey Coombs
+	2016-2022		http://titania-js.org/
 */
 const dom = {
 	select: function (selector=null) {
