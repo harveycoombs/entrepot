@@ -254,7 +254,7 @@ class TitaniaElement {
 			}
 		};
 		this.apply = function (classlist) {
-			var list = (typeof classlist == "object") ? classlist : ((classlist.indexOf(",") != -1) ? classlist.split(",") : [classlist]);
+			var list = (classlist instanceof Array) ? classlist : ((classlist.indexOf(",") != -1) ? classlist.split(",") : [classlist]);
 
 			list.forEach((cl) => {
 				if (!em.classList.contains(cl)) {
@@ -263,7 +263,7 @@ class TitaniaElement {
 			});
 		};
 		this.shift = function (classlist) {
-			var list = (typeof classlist == "object") ? classlist : ((classlist.indexOf(",") != -1) ? classlist.split(",") : [classlist]);
+			var list = (classlist instanceof Array) ? classlist : ((classlist.indexOf(",") != -1) ? classlist.split(",") : [classlist]);
 
 			list.forEach((cl) => {
 				if (em.classList.contains(cl)) {
@@ -289,7 +289,7 @@ class TitaniaElement {
 			return em.getAttribute(key);
 		};
 		this.has = function (classes) {
-			if (typeof classes === "object") {
+			if (classes instanceof Array) {
 				var out = [];
 
 				classes.forEach(cl => {
