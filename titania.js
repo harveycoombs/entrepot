@@ -1,5 +1,9 @@
-//TITANIA-JS.ORG | WRITTEN BY HARVEY COOMBS |  2016 (ORIGINAL) - 2022 | HARVEYCOOMBS.COM
-var dom = {
+/*
+	Titania.JS, The multi-faceted & nimble JavaScript library
+	Written by Harvey Coombs
+	2016-2022
+*/
+const dom = {
 	select: function (selector=null) {
 	    
 	    let qsa = document.querySelectorAll(selector);
@@ -69,7 +73,10 @@ var dom = {
 					throw new TitaniaException(0, "Unable to create element; Please check your arguments are formatted correctly\n(i.e. '{ tag: \"Tag name\", classes: \"Class list\", id: \"The ID\" })'", this);
 				}
 		}
-	}
+	},
+	print: function (items) {
+        document.write(items.toString());
+    }
 };
 
 const nav = {
@@ -118,7 +125,7 @@ const calc = {
 		var regex = new RegExp('^[^a-z$#£@&_~;]*$');
 		let safe = regex.test(expr.toLowerCase());
 
-		return ((safe) ? eval(expr) : null);
+		return (safe ? eval(expr) : null);
 	},
 	power: function (subject, index) {
 		let final = 1;
@@ -176,11 +183,11 @@ const http = {
 	}
 };
 
-Object.defineProperty(Object.prototype, 'fuse', {
+Object.defineProperty(Array.prototype, 'fuse', {
 	value: function (source=[]) {
 		let target = this;
 
-		if (typeof source == "object") {
+		if (source instanceof Array) {
 			source.forEach(s => {
 				target.push(s);
 			});
@@ -193,7 +200,7 @@ Object.defineProperty(Object.prototype, 'fuse', {
 	}
 }); 
 
-Object.defineProperty(Object.prototype, 'compare', {
+Object.defineProperty(Array.prototype, 'compare', {
 	value: function (subject=[]) {
 		let target = this;
 
@@ -211,7 +218,7 @@ Object.defineProperty(Object.prototype, 'compare', {
 
 	return { total: total, common: matches };
 	}
-});   
+});
 
 class TitaniaElement {
 	constructor (em) {
