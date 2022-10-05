@@ -208,15 +208,15 @@ Object.defineProperty(Array.prototype, 'compare', {
 		let matches  = [];
 
 		target.forEach(val => {
-		for (var x = 0; x < subject.length; x++) {
-			if (val == subject[x]) {
-				matches.push(subject[x]);
-				total++;
+			for (var x = 0; x < subject.length; x++) {
+				if (val == subject[x]) {
+					matches.push(subject[x]);
+					total++;
+				}
 			}
-		}
-	});
+		});
 
-	return { total: total, common: matches };
+		return { total: total, common: matches };
 	}
 });
 
@@ -224,7 +224,6 @@ class TitaniaElement {
 	constructor (em) {
 		this.pure = em;
 		this.id = em.id;
-		this.length = em.length;
 		this.tag = em.nodeName.toLowerCase();
 		this.height = em.height;
 		this.width = em.width;
@@ -309,10 +308,6 @@ class TitaniaElement {
 		};
 	}
 
-	get parent() {
-		return (this.pure).parentNode;
-	}
-
 	get origin() {
 		var target = (this.pure).parentNode;
 		var all = [];
@@ -323,6 +318,14 @@ class TitaniaElement {
 		}
 
 		return all;
+	}
+
+	get parent() {
+		return new TitaniaElement((this.pure).parentNode);
+	}
+
+	get children() {
+		
 	}
 }
 
