@@ -1,6 +1,6 @@
 /*
 	Titania.JS		The multi-faceted & nimble JavaScript library
-	Version 1.9.3.		Written by Harvey Coombs
+	Version 1.9.4.		Written by Harvey Coombs
 	2016-2022		http://titania-js.org/
 */
 const dom = {
@@ -306,6 +306,22 @@ class TitaniaElement {
 			copy.outerHTML = node.outerHTML;
 			return copy;
 		};
+		this.search = function (subject) {
+			var ca = Array.from(this.children);
+
+			switch (true) {
+				case (subject instanceof TitaniaElement):
+					return ca.includes(subject);
+				case (subject instanceof Node):
+					return ca.includes(new TitaniaElement());
+				default:
+					var res = false;
+					for (var h = 0; !res; h++) {
+						res = (ca[h].value.includes(subject.toString()) || ca[h].textContent.includes(subject.toString()));
+					}
+					return res;
+			}
+		};
 	}
 
 	get origin() {
@@ -325,7 +341,12 @@ class TitaniaElement {
 	}
 
 	get children() {
-		
+		var allc = [];
+		((this.pure).children).forEach((ch) => {
+			allc.push(new TitaniaElement(ch));
+		});
+
+		return allc;
 	}
 }
 
