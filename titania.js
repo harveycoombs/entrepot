@@ -41,8 +41,7 @@ const dom = {
 			document.removeEventListener(event, callback);
 		}
 	},
-	children: document.childElementCount,
-	dragMedia: function (allow) {
+	draggable: function (allow) {
 		document.querySelectorAll("img").forEach((im) => {
 			im.setAttribute("draggable", allow);
 		});
