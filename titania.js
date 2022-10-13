@@ -224,6 +224,9 @@ Object.defineProperty(Array.prototype, 'compare', {
 class TitaniaElement {
 	constructor (em) {
 		this.pure = em;
+		this.select = function () {
+			//replace with re-written dom.select fn.
+		}
 		this.id = em.id;
 		this.tag = em.nodeName.toLowerCase();
 		this.height = em.height;
