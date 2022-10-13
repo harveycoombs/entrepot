@@ -28,6 +28,7 @@ const dom = {
 	        return null;
 	    }
 	},
+	pure: document,
 	html: document.querySelector("html").innerHTML,
 	listen: document.addEventListener,
 	ignore: function (event, callback) {
