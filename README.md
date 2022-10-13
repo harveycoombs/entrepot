@@ -28,7 +28,7 @@ var box = document.querySelector("#box");
 box.classList.add("classX", "classY", "classZ");
 
 //Titania JavaScript
-var box = dom.select("#box");
+var box = DOM.Select("#box");
 box.apply("classX classY classZ");
 ```
 
