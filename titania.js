@@ -4,8 +4,6 @@
 	2016-2022		http://titania-js.org/
 */
 
-const _ = dom.select;
-
 const dom = {
 	select: function (selector=null) {
 	    
@@ -428,3 +426,5 @@ class TitaniaException {
 		this.culprit = culprit;
 	}
 }
+
+const _ = dom.select;
