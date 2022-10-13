@@ -3,6 +3,9 @@
 	Version 1.9.4.		Written by Harvey Coombs
 	2016-2022		http://titania-js.org/
 */
+
+const _ = dom.select;
+
 const dom = {
 	select: function (selector=null) {
 	    
