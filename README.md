@@ -25,17 +25,11 @@ For information on learning Titania.JS, please see the [Documentation](http://ti
 ```js
 //Native JavaScript
 var box = document.querySelector("#box");
-
-box.addEventListener("click", () => {
-  box.classList.add("classX", "classY", "classZ");
-});
+box.classList.add("classX", "classY", "classZ");
 
 //Titania JavaScript
 var box = dom.select("#box");
- 
-box.listen("click", () => {
-  box.apply("classX classY classZ");
-});
+box.apply("classX classY classZ");
 ```
 
 ### Attaching & detaching Event listeners
@@ -48,7 +42,7 @@ item.addEventListener("click", function () {
 });
 
 //Titania JavaScript
-var item = dom.select("div.item");
+var item = DOM.Select("div.item");
 
 item.listen("click", function () {
   console.log("I was clicked!");
