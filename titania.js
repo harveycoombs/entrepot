@@ -87,7 +87,7 @@ class Nav {
 	static copy(text="") {
 		navigator.clipboard.writeText(text);
 		return (text.length > 0);
-	};
+	}
 
 	static paste(target) {
 		navigator.clipboard.readText().then((rt) => {
@@ -107,7 +107,7 @@ class Session {
 			value: val,
 			write: true
 		});
-	};
+	}
 
 	static Remove(key="") {
 		var all = Object.keys(this);
@@ -118,7 +118,7 @@ class Session {
 		}
 
 		return (all.find(key) != undefined);
-	};
+	}
 }
 
 class Calc {
@@ -127,7 +127,8 @@ class Calc {
 		let safe = regex.test(expr.toLowerCase());
 
 		return (safe ? eval(expr) : null);
-	};
+	}
+
 	static Power(subject, index) {
 		let final = 1;
 
@@ -136,7 +137,7 @@ class Calc {
 		}
 
 		return final;
-	};
+	}
 };
 
 class To {
@@ -153,7 +154,7 @@ class To {
             default:
                 return subject.toString();
         }
-	};
+	}
 
 	static Int = parseInt;
 	static Float = parseFloat;
@@ -171,7 +172,7 @@ class HTTP {
 			body: postr.responseText,
 			status: postr.status
 		};		
-	};
+	}
 
 	static Get(target) {
 		let getr = new XMLHttpRequest();
