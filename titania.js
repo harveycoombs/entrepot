@@ -1,25 +1,23 @@
 /*
 	Titania.JS		The multi-faceted & nimble JavaScript library
-	Version 1.9.4.		Written by Harvey Coombs
+	Version 2.0.0.	Written by Harvey Coombs
 	2016-2022		http://titania-js.org/
 */
-
-const dom = {
-	select: function (selector=null) {
-	    
+class DOM {
+	static Select(selector=null) {
 	    let qsa = document.querySelectorAll(selector);
 	    
 	    if (qsa != null && qsa != undefined && qsa.length > 0) {
     	    if (qsa.length == 1) {
         		let qs = document.querySelector(selector);
-    			let selection = new TitaniaElement(qs);
+    			let selection = new Titania(qs);
 
     			return selection;
     	    } else {
     	        var list = [];
     	        
     	        qsa.forEach(elem => {
-        			let selection = new TitaniaElement(elem);
+        			let selection = new Titania(elem);
         			list.push(selection);
     	        });
     	        
@@ -28,11 +26,13 @@ const dom = {
 	    } else {
 	        return null;
 	    }
-	},
-	pure: document,
-	html: document.querySelector("html").innerHTML,
-	listen: document.addEventListener,
-	ignore: function (event, callback) {
+	}
+
+	static Pure = document;
+	static HTML = document.querySelector("html").innerHTML;
+	static Listen = document.addEventListener;
+
+	static Ignore(event, callback) {
 		if (event == null) {
 			var all = getEventListeners(document);
 			
@@ -42,13 +42,15 @@ const dom = {
 		} else {
 			document.removeEventListener(event, callback);
 		}
-	},
-	draggable: function (allow) {
+	}
+
+	static Draggable(allow) {
 		document.querySelectorAll("img").forEach((im) => {
 			im.setAttribute("draggable", allow);
 		});
-	},
-	create: function (type="element", content) {
+	}
+
+	static Create(type="element", content) {
 		switch (type.toLowerCase()) {
 			case "style":
 				var css = content.toString();
@@ -74,61 +76,59 @@ const dom = {
 					throw new TitaniaException(0, "Unable to create element; Please check your arguments are formatted correctly\n(i.e. '{ tag: \"Tag name\", classes: \"Class list\", id: \"The ID\" })'", this);
 				}
 		}
-	},
-	print: function (items) {
-        document.write(items.toString());
-    }
+	}
+	
+	static Print(items) {
+		document.write(items.toString());
+	}
 };
 
-const nav = {
-	copy: function (text="") {
+class Nav {
+	static copy(text="") {
 		navigator.clipboard.writeText(text);
 		return (text.length > 0);
-	},
-	paste: function (target) {
+	};
+
+	static paste(target) {
 		navigator.clipboard.readText().then((rt) => {
 			(target.pure).innerText += rt;
 		}).catch((er) => {
 			throw new TitaniaException(0, "Unable to paste from clipboard'", this);
 		});
-	},
-	clipboard: navigator.clipboard
-};
+	}
 
-const viewport = {
-	width: window.visualViewport.width,
-	height: window.visualViewport.height,
-	scale: window.visualViewport.scale
-};
+	static clipboard = navigator.clipboard;
+}
 
-var session = {
-	define: function (key, val) {
+class Session {
+	static Define(key, val) {
 		sessionStorage.setItem(key, val);
 		Object.defineProperty(session, key, {
 			value: val,
 			write: true
 		});
-	},
-	remove: function (key="") {
+	};
+
+	static Remove(key="") {
 		var all = Object.keys(this);
 
 		if (all.find(key) != undefined) {
 			sessionStorage.removeItem(key);
-			delete subject;
+			//delete key;
 		}
 
 		return (all.find(key) != undefined);
-	}
+	};
 }
 
-const calc = {
-	ulate: function (expr) {
+class Calc {
+	static ulate(expr) {
 		var regex = new RegExp('^[^a-z$#£@&_~;]*$');
 		let safe = regex.test(expr.toLowerCase());
 
 		return (safe ? eval(expr) : null);
-	},
-	power: function (subject, index) {
+	};
+	static Power(subject, index) {
 		let final = 1;
 
 		for (var e = 0; e < index; e++) {
@@ -136,12 +136,13 @@ const calc = {
 		}
 
 		return final;
-	}
+	};
 };
 
-const to = {
-    json: JSON.parse,
-    string: function (subject) {
+class To {
+	static JSON = JSON.parse;
+
+	static String(subject) {
         switch (typeof subject) {
             case "object":
                 return JSON.stringify(subject);
@@ -152,13 +153,14 @@ const to = {
             default:
                 return subject.toString();
         }
-    },
-    int: parseInt,
-    float: parseFloat
-};
+	};
 
-const http = {
-	post: function (target) {
+	static Int = parseInt;
+	static Float = parseFloat;
+}
+
+class HTTP {
+	static Post(target) {
 		let postr = new XMLHttpRequest();
 		
 		postr.open("POST", target, false);
@@ -168,9 +170,10 @@ const http = {
 		return {
 			body: postr.responseText,
 			status: postr.status
-		};
-	},
-	get: function (target) {
+		};		
+	};
+
+	static Get(target) {
 		let getr = new XMLHttpRequest();
 		
 		getr.open("GET", target, false);
@@ -182,51 +185,11 @@ const http = {
 			status: getr.status
 		};
 	}
-};
+}
 
-Object.defineProperty(Array.prototype, 'fuse', {
-	value: function (source=[]) {
-		let target = this;
-
-		if (source instanceof Array) {
-			source.forEach(s => {
-				target.push(s);
-			});
-		} else {
-			source = source.toString();
-			target.push(source);
-		}
-
-		return target;
-	}
-}); 
-
-Object.defineProperty(Array.prototype, 'compare', {
-	value: function (subject=[]) {
-		let target = this;
-
-		let total = 0;
-		let matches  = [];
-
-		target.forEach(val => {
-			for (var x = 0; x < subject.length; x++) {
-				if (val == subject[x]) {
-					matches.push(subject[x]);
-					total++;
-				}
-			}
-		});
-
-		return { total: total, common: matches };
-	}
-});
-
-class TitaniaElement {
+class Titania {
 	constructor (em) {
 		this.pure = em;
-		this.select = function () {
-			//replace with re-written dom.select fn.
-		}
 		this.id = em.id;
 		this.tag = em.nodeName.toLowerCase();
 		this.height = em.height;
@@ -314,10 +277,10 @@ class TitaniaElement {
 			var ca = Array.from(this.children);
 
 			switch (true) {
-				case (subject instanceof TitaniaElement):
+				case (subject instanceof Titania):
 					return ca.includes(subject);
 				case (subject instanceof Node):
-					return ca.includes(new TitaniaElement());
+					return ca.includes(new Titania());
 				default:
 					var res = false;
 					for (var h = 0; !res; h++) {
@@ -341,13 +304,13 @@ class TitaniaElement {
 	}
 
 	get parent() {
-		return new TitaniaElement((this.pure).parentNode);
+		return new Titania((this.pure).parentNode);
 	}
 
 	get children() {
 		var allc = [];
 		((this.pure).children).forEach((ch) => {
-			allc.push(new TitaniaElement(ch));
+			allc.push(new Titania(ch));
 		});
 
 		return allc;
@@ -430,4 +393,41 @@ class TitaniaException {
 	}
 }
 
-const _ = dom.select;
+Object.defineProperty(Array.prototype, 'fuse', {
+	value: function (source=[]) {
+		let target = this;
+
+		if (source instanceof Array) {
+			source.forEach(s => {
+				target.push(s);
+			});
+		} else {
+			source = source.toString();
+			target.push(source);
+		}
+
+		return target;
+	}
+}); 
+
+Object.defineProperty(Array.prototype, 'compare', {
+	value: function (subject=[]) {
+		let target = this;
+
+		let total = 0;
+		let matches  = [];
+
+		target.forEach(val => {
+			for (var x = 0; x < subject.length; x++) {
+				if (val == subject[x]) {
+					matches.push(subject[x]);
+					total++;
+				}
+			}
+		});
+
+		return { total: total, common: matches };
+	}
+});
+
+const _ = DOM.Select;
