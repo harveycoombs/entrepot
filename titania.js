@@ -4,7 +4,7 @@
 	2016-2022		http://titania-js.org/
 */
 class DOM {
-	static Select(selector=null) {
+	static select(selector=null) {
 	    let qsa = document.querySelectorAll(selector);
 	    
 	    if (qsa != null && qsa != undefined && qsa.length > 0) {
@@ -28,11 +28,11 @@ class DOM {
 	    }
 	}
 
-	static Pure = document;
-	static HTML = document.querySelector("html").innerHTML;
-	static Listen = document.addEventListener;
+	static pure = document;
+	static html = document.querySelector("html").innerHTML;
+	static listen = document.addEventListener;
 
-	static Ignore(event, callback) {
+	static ignore(event, callback) {
 		if (event == null) {
 			var all = getEventListeners(document);
 			
@@ -44,13 +44,13 @@ class DOM {
 		}
 	}
 
-	static Draggable(allow) {
+	static draggable(allow) {
 		document.querySelectorAll("img").forEach((im) => {
 			im.setAttribute("draggable", allow);
 		});
 	}
 
-	static Create(type="element", content) {
+	static create(type="element", content) {
 		switch (type.toLowerCase()) {
 			case "style":
 				var css = content.toString();
@@ -78,7 +78,7 @@ class DOM {
 		}
 	}
 	
-	static Print(items) {
+	static print(items) {
 		document.write(items.toString());
 	}
 };
@@ -101,7 +101,7 @@ class Nav {
 }
 
 class Session {
-	static Define(key, val) {
+	static define(key, val) {
 		sessionStorage.setItem(key, val);
 		Object.defineProperty(session, key, {
 			value: val,
@@ -109,7 +109,7 @@ class Session {
 		});
 	}
 
-	static Remove(key="") {
+	static remove(key="") {
 		var all = Object.keys(this);
 
 		if (all.find(key) != undefined) {
@@ -129,7 +129,7 @@ class Calc {
 		return (safe ? eval(expr) : null);
 	}
 
-	static Power(subject, index) {
+	static power(subject, index) {
 		let final = 1;
 
 		for (var e = 0; e < index; e++) {
@@ -143,7 +143,7 @@ class Calc {
 class To {
 	static JSON = JSON.parse;
 
-	static String(subject) {
+	static string(subject) {
         switch (typeof subject) {
             case "object":
                 return JSON.stringify(subject);
@@ -156,12 +156,12 @@ class To {
         }
 	}
 
-	static Int = parseInt;
-	static Float = parseFloat;
+	static int = parseInt;
+	static float = parseFloat;
 }
 
 class HTTP {
-	static Post(target) {
+	static post(target) {
 		let postr = new XMLHttpRequest();
 		
 		postr.open("POST", target, false);
@@ -174,7 +174,7 @@ class HTTP {
 		};		
 	}
 
-	static Get(target) {
+	static get(target) {
 		let getr = new XMLHttpRequest();
 		
 		getr.open("GET", target, false);
