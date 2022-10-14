@@ -28,7 +28,7 @@ var box = document.querySelector("#box");
 box.classList.add("classX", "classY", "classZ");
 
 //Titania JavaScript
-var box = DOM.Select("#box");
+var box = DOM.select("#box");
 box.apply("classX classY classZ");
 ```
 
@@ -42,7 +42,7 @@ item.addEventListener("click", function () {
 });
 
 //Titania JavaScript
-var item = DOM.Select("div.item");
+var item = DOM.select("div.item");
 
 item.listen("click", function () {
   console.log("I was clicked!");
