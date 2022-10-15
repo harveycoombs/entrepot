@@ -319,21 +319,21 @@ class Titania {
 	}
 
 	get html() {
-		return em.innerHTML;
+		return (this.pure).innerHTML;
 	} set html(content) {
-		em.innerHTML = content;
+		(this.pure).innerHTML = content;
 	}
 
 	get value() {
-		return em.innerHTML;
+		return (this.pure).innerHTML;
 	} set value(content) {
-		em.value = content;
+		(this.pure).value = content;
 	}
 
 	get text() {
-		return em.innerHTML;
+		return (this.pure).innerHTML;
 	} set text(content) {
-		em.textContent = content;
+		(this.pure).textContent = content;
 	}
 }
 
