@@ -433,4 +433,4 @@ Object.defineProperty(Array.prototype, 'compare', {
 	}
 });
 
-const _ = DOM.Select;
+const _ = DOM.select;
