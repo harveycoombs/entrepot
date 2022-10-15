@@ -249,7 +249,6 @@ class Titania {
 			em.innerHTML = (content + em.innerHTML);
 		};
 		this.delete = (this.pure).remove
-		this.html = em.innerHTML;
 		this.attribute = function (key, val=null) {
 			if (val != null) {
 			    em.setAttribute(key, val);
@@ -317,6 +316,24 @@ class Titania {
 		});
 
 		return allc;
+	}
+
+	get html() {
+		return em.innerHTML;
+	} set html(content) {
+		em.innerHTML = content;
+	}
+
+	get value() {
+		return em.innerHTML;
+	} set value(content) {
+		em.value = content;
+	}
+
+	get text() {
+		return em.innerHTML;
+	} set text(content) {
+		em.textContent = content;
 	}
 }
 
