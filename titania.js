@@ -30,7 +30,9 @@ class DOM {
 
 	static pure = document;
 	static html = document.querySelector("html").innerHTML;
-	static listen = document.addEventListener;
+	static listen = function (event, callback) {
+		document.addEventListener(event, callback);
+	}
 
 	static ignore(event, callback) {
 		if (event == null) {
@@ -193,8 +195,8 @@ class Titania {
 		this.pure = em;
 		this.id = em.id;
 		this.tag = em.nodeName.toLowerCase();
-		this.height = em.height;
-		this.width = em.width;
+		this.height = em.clientHeight;
+		this.width = em.clientWidth;
 		this.classes = em.classList;
 		this.listen = function (event, callback) {
 		    em.addEventListener(event, callback);
