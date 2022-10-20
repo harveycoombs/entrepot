@@ -3,87 +3,8 @@
 	Version 2.0.0.	Written by Harvey Coombs
 	2016-2022		http://titania-js.org/
 */
-class DOM {
-	static select(selector=null) {
-	    let qsa = document.querySelectorAll(selector);
-	    
-	    if (qsa != null && qsa != undefined && qsa.length > 0) {
-    	    if (qsa.length == 1) {
-        		let qs = document.querySelector(selector);
-    			let selection = new Titania(qs);
 
-    			return selection;
-    	    } else {
-    	        var list = [];
-    	        
-    	        qsa.forEach(elem => {
-        			let selection = new Titania(elem);
-        			list.push(selection);
-    	        });
-    	        
-    	        return list;
-    	    }
-	    } else {
-	        return null;
-	    }
-	}
-
-	static pure = document;
-	static html = document.querySelector("html").innerHTML;
-	static listen = function (event, callback) {
-		document.addEventListener(event, callback);
-	}
-
-	static ignore(event, callback) {
-		if (event == null) {
-			var all = getEventListeners(document);
-			
-			all.forEach(ev => {
-				document.removeEventListener(ev);
-			});
-		} else {
-			document.removeEventListener(event, callback);
-		}
-	}
-
-	static draggable(allow) {
-		document.querySelectorAll("img").forEach((im) => {
-			im.setAttribute("draggable", allow);
-		});
-	}
-
-	static create(type="element", content) {
-		switch (type.toLowerCase()) {
-			case "style":
-				var css = content.toString();
-
-				var inline = document.createElement("style");
-				inline.innerText = css;
-
-				(document.body).append(inline);
-				return inline;
-				
-			case "element":
-				try {
-					if (typeof content === "object") {
-						var creation = document.createElement(content.tag);
-							creation.classList = content.classes;
-							creation.id = content.id;
-
-						return creation;
-					} else {
-						return document.createElement(content.toString());
-					}
-				} catch {
-					throw new TitaniaException(0, "Unable to create element; Please check your arguments are formatted correctly\n(i.e. '{ tag: \"Tag name\", classes: \"Class list\", id: \"The ID\" })'", this);
-				}
-		}
-	}
-	
-	static print(items) {
-		document.write(items.toString());
-	}
-};
+const DOM = new Titania(document);
 
 class Nav {
 	static copy(text="") {
@@ -192,6 +113,29 @@ class HTTP {
 
 class Titania {
 	constructor (em) {
+		this.select = function (selector=null) {
+			let qsa = document.querySelectorAll(selector);
+			
+			if (qsa != null && qsa != undefined && qsa.length > 0) {
+				if (qsa.length == 1) {
+					let qs = document.querySelector(selector);
+					let selection = new Titania(qs);
+	
+					return selection;
+				} else {
+					var list = [];
+					
+					qsa.forEach(elem => {
+						let selection = new Titania(elem);
+						list.push(selection);
+					});
+					
+					return list;
+				}
+			} else {
+				return null;
+			}
+		};
 		this.pure = em;
 		this.id = em.id;
 		this.tag = em.nodeName.toLowerCase();
