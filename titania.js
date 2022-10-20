@@ -6,110 +6,7 @@
 
 const DOM = new Titania(document);
 
-class Nav {
-	static copy(text="") {
-		navigator.clipboard.writeText(text);
-		return (text.length > 0);
-	}
 
-	static paste(target) {
-		navigator.clipboard.readText().then((rt) => {
-			(target.pure).innerText += rt;
-		}).catch((er) => {
-			throw new TitaniaException(0, "Unable to paste from clipboard'", this);
-		});
-	}
-
-	static clipboard = navigator.clipboard;
-}
-
-class Session {
-	static define(key, val) {
-		sessionStorage.setItem(key, val);
-		Object.defineProperty(session, key, {
-			value: val,
-			write: true
-		});
-	}
-
-	static remove(key="") {
-		var all = Object.keys(this);
-
-		if (all.find(key) != undefined) {
-			sessionStorage.removeItem(key);
-			//delete key;
-		}
-
-		return (all.find(key) != undefined);
-	}
-}
-
-class Calc {
-	static ulate(expr) {
-		var regex = new RegExp('^[^a-z$#£@&_~;]*$');
-		let safe = regex.test(expr.toLowerCase());
-
-		return (safe ? eval(expr) : null);
-	}
-
-	static power(subject, index) {
-		let final = 1;
-
-		for (var e = 0; e < index; e++) {
-			final = (final * subject);
-		}
-
-		return final;
-	}
-};
-
-class To {
-	static JSON = JSON.parse;
-
-	static string(subject) {
-        switch (typeof subject) {
-            case "object":
-                return JSON.stringify(subject);
-
-            case "string":
-                return subject;
-
-            default:
-                return subject.toString();
-        }
-	}
-
-	static int = parseInt;
-	static float = parseFloat;
-}
-
-class HTTP {
-	static post(target) {
-		let postr = new XMLHttpRequest();
-		
-		postr.open("POST", target, false);
-		postr.setRequestHeader("Access-Control-Allow-Origin", "*");
-		postr.send();
-		
-		return {
-			body: postr.responseText,
-			status: postr.status
-		};		
-	}
-
-	static get(target) {
-		let getr = new XMLHttpRequest();
-		
-		getr.open("GET", target, false);
-		getr.setRequestHeader("Access-Control-Allow-Origin", "*");
-		getr.send();
-
-		return {
-			body: getr.responseText,
-			status: getr.status
-		};
-	}
-}
 
 class Titania {
 	constructor (em) {
@@ -138,6 +35,7 @@ class Titania {
 		};
 		this.pure = em;
 		this.id = em.id;
+		this.exists = (em != null && em != undefined);
 		this.tag = em.nodeName.toLowerCase();
 		this.height = em.clientHeight;
 		this.width = em.clientWidth;
@@ -278,6 +176,111 @@ class Titania {
 		return (this.pure).innerHTML;
 	} set text(content) {
 		(this.pure).textContent = content;
+	}
+}
+
+class Nav {
+	static copy(text="") {
+		navigator.clipboard.writeText(text);
+		return (text.length > 0);
+	}
+
+	static paste(target) {
+		navigator.clipboard.readText().then((rt) => {
+			(target.pure).innerText += rt;
+		}).catch((er) => {
+			throw new TitaniaException(0, "Unable to paste from clipboard'", this);
+		});
+	}
+
+	static clipboard = navigator.clipboard;
+}
+
+class Session {
+	static define(key, val) {
+		sessionStorage.setItem(key, val);
+		Object.defineProperty(session, key, {
+			value: val,
+			write: true
+		});
+	}
+
+	static remove(key="") {
+		var all = Object.keys(this);
+
+		if (all.find(key) != undefined) {
+			sessionStorage.removeItem(key);
+			//delete key;
+		}
+
+		return (all.find(key) != undefined);
+	}
+}
+
+class Calc {
+	static ulate(expr) {
+		var regex = new RegExp('^[^a-z$#£@&_~;]*$');
+		let safe = regex.test(expr.toLowerCase());
+
+		return (safe ? eval(expr) : null);
+	}
+
+	static power(subject, index) {
+		let final = 1;
+
+		for (var e = 0; e < index; e++) {
+			final = (final * subject);
+		}
+
+		return final;
+	}
+};
+
+class To {
+	static JSON = JSON.parse;
+
+	static string(subject) {
+        switch (typeof subject) {
+            case "object":
+                return JSON.stringify(subject);
+
+            case "string":
+                return subject;
+
+            default:
+                return subject.toString();
+        }
+	}
+
+	static int = parseInt;
+	static float = parseFloat;
+}
+
+class HTTP {
+	static post(target) {
+		let postr = new XMLHttpRequest();
+		
+		postr.open("POST", target, false);
+		postr.setRequestHeader("Access-Control-Allow-Origin", "*");
+		postr.send();
+		
+		return {
+			body: postr.responseText,
+			status: postr.status
+		};		
+	}
+
+	static get(target) {
+		let getr = new XMLHttpRequest();
+		
+		getr.open("GET", target, false);
+		getr.setRequestHeader("Access-Control-Allow-Origin", "*");
+		getr.send();
+
+		return {
+			body: getr.responseText,
+			status: getr.status
+		};
 	}
 }
 
