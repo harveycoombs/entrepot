@@ -6,8 +6,6 @@
 
 const DOM = new Titania(document);
 
-
-
 class Titania {
 	constructor (em) {
 		this.select = function (selector=null) {
