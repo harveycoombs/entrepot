@@ -9,11 +9,11 @@ class Titania {
 		this.select = function (target=null) {
 			switch (true) {
 				case (typeof target == "string"):
-					let qsa = document.querySelectorAll(selector);
+					let qsa = document.querySelectorAll(target);
 					
 					if (qsa != null && qsa != undefined && qsa.length > 0) {
 						if (qsa.length == 1) {
-							let qs = document.querySelector(selector);
+							let qs = document.querySelector(target);
 							let selection = new Titania(qs);
 
 							return selection;
@@ -28,7 +28,7 @@ class Titania {
 							return list;
 						}
 					} else {
-					return null;
+						return null;
 					}
 				case (target instanceof Node):
 					return new Titania(target);
