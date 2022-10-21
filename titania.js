@@ -6,27 +6,36 @@
 
 class Titania {
 	constructor (em) {
-		this.select = function (selector=null) {
-			let qsa = document.querySelectorAll(selector);
-			
-			if (qsa != null && qsa != undefined && qsa.length > 0) {
-				if (qsa.length == 1) {
-					let qs = document.querySelector(selector);
-					let selection = new Titania(qs);
-	
-					return selection;
-				} else {
-					var list = [];
-					
-					qsa.forEach(elem => {
-						let selection = new Titania(elem);
-						list.push(selection);
-					});
-					
-					return list;
-				}
-			} else {
-				return null;
+		this.select = function (target=null) {
+			switch (true) {
+				case (typeof target == "string"):
+					if (qsa != null && qsa != undefined && qsa.length > 0) {
+						let qsa = document.querySelectorAll(selector);
+						
+						if (qsa.length == 1) {
+							let qs = document.querySelector(selector);
+							let selection = new Titania(qs);
+
+							return selection;
+						} else {
+							var list = [];
+
+							qsa.forEach(elem => {
+							let selection = new Titania(elem);
+							list.push(selection);
+							});
+
+							return list;
+						}
+					} else {
+					return null;
+					}
+				case (target instanceof Node):
+					return new Titania(target);
+				case (target instanceof Titania):
+					return target;
+				default:
+					return null;
 			}
 		};
 		this.pure = em;
