@@ -9,9 +9,9 @@ class Titania {
 		this.select = function (target=null) {
 			switch (true) {
 				case (typeof target == "string"):
+					let qsa = document.querySelectorAll(selector);
+					
 					if (qsa != null && qsa != undefined && qsa.length > 0) {
-						let qsa = document.querySelectorAll(selector);
-						
 						if (qsa.length == 1) {
 							let qs = document.querySelector(selector);
 							let selection = new Titania(qs);
