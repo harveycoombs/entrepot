@@ -397,7 +397,7 @@ Object.defineProperty(Array.prototype, 'compare', {
 			}
 		});
 
-		return { total: total, common: matches };
+		return matches;
 	}
 });
 
