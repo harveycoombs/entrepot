@@ -4,8 +4,6 @@
 	2016-2022		http://titania-js.org/
 */
 
-const DOM = new Titania(document);
-
 class Titania {
 	constructor (em) {
 		this.select = function (selector=null) {
@@ -395,4 +393,5 @@ Object.defineProperty(Array.prototype, 'compare', {
 	}
 });
 
+const DOM = new Titania(document);
 const _ = DOM.select;
