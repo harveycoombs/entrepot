@@ -3,7 +3,6 @@
 	Version 2.0.0.	Written by Harvey Coombs
 	2016-2022		http://titania-js.org/
 */
-
 class Titania {
 	constructor (em) {
 		this.select = function (target=null) {
