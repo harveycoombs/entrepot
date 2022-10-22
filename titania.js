@@ -43,7 +43,6 @@ class Titania {
 		this.tag = em.nodeName.toLowerCase();
 		this.height = em.clientHeight;
 		this.width = em.clientWidth;
-		this.classes = em.classList;
 		this.listen = function (event, callback) {
 		    em.addEventListener(event, callback);
 		};
@@ -59,35 +58,60 @@ class Titania {
 			}
 		};
 		this.focused = em.focusState;
-		this.drag = em.getAttribute("draggable");
-		this.css = em.getAttribute("style");
-		this.set = function (prop, val) {
-			try {
-				em.setAttribute(prop, val);
-			} catch {
-				throw new TitaniaException(0, "Invalid argument provision", this);
-			}
-		};
-		this.apply = function (classlist) {
-			var list = (classlist instanceof Array) ? classlist : ((classlist.indexOf(",") != -1) ? classlist.split(",") : [classlist]);
-
-			list.forEach((cl) => {
-				if (!em.classList.contains(cl)) {
-					em.classList.add(cl);
+		if (t_isValid(em.getAttribute) && t_isValid(em.setAttribute)) {
+			this.drag = em.getAttribute("draggable");
+			this.css = em.getAttribute("style");
+			this.set = function (prop, val) {
+				try {
+					em.setAttribute(prop, val);
+				} catch {
+					throw new TitaniaException(0, "Invalid argument provision", this);
 				}
-			});
-		};
-		this.shift = function (classlist) {
-			var list = (classlist instanceof Array) ? classlist : ((classlist.indexOf(",") != -1) ? classlist.split(",") : [classlist]);
-
-			list.forEach((cl) => {
-				if (em.classList.contains(cl)) {
-					em.classList.remove(cl);
+			};
+			this.disabled = em.getAttribute("disabled");
+			this.attribute = function (key, val=null) {
+				if (val != null && isFunc(em.getAttribute)) {
+					em.setAttribute(key, val);
 				}
-			});
-		};
-		this.has = em.classList.contains;
-		this.disabled = em.getAttribute("disabled");
+				
+				return em.getAttribute(key);
+			};
+		}
+		if (t_isValid(em.classList)) {
+			this.classes = Array.from(em.classList);
+			this.apply = function (classlist) {
+				var list = (classlist instanceof Array) ? classlist : ((classlist.indexOf(",") != -1) ? classlist.split(",") : [classlist]);
+	
+				list.forEach((cl) => {
+					if (!em.classList.contains(cl)) {
+						em.classList.add(cl);
+					}
+				});
+			};
+			this.shift = function (classlist) {
+				var list = (classlist instanceof Array) ? classlist : ((classlist.indexOf(",") != -1) ? classlist.split(",") : [classlist]);
+	
+				list.forEach((cl) => {
+					if (em.classList.contains(cl)) {
+						em.classList.remove(cl);
+					}
+				});
+			};
+			this.has = function (classes) {
+				if (classes instanceof Array) {
+					var out = [];
+	
+					classes.forEach(cl => {
+						let res = em.classList.contains(cl);
+						out.push({ class: cl, found: res });
+					});
+	
+					return out;
+				} else {
+					return (em.classList.contains(classes.toString()));
+				}
+			};
+		}
 		this.after = function (content) {
 			em.innerHTML += content;
 		};
@@ -95,27 +119,6 @@ class Titania {
 			em.innerHTML = (content + em.innerHTML);
 		};
 		this.delete = (this.pure).remove
-		this.attribute = function (key, val=null) {
-			if (val != null) {
-			    em.setAttribute(key, val);
-			}
-			
-			return em.getAttribute(key);
-		};
-		this.has = function (classes) {
-			if (classes instanceof Array) {
-				var out = [];
-
-				classes.forEach(cl => {
-					let res = em.classList.contains(cl);
-					out.push({ class: cl, found: res });
-				});
-
-				return out;
-			} else {
-				return (em.classList.contains(classes.toString()));
-			}
-		};
 		this.dupe = function () {
 			var copy = document.createElement(this.tag);
 			copy.outerHTML = node.outerHTML;
@@ -403,3 +406,7 @@ Object.defineProperty(Array.prototype, 'compare', {
 
 const DOM = new Titania(document);
 const _ = DOM.select;
+
+function t_isValid(fn) {
+	return (fn != undefined);
+}
