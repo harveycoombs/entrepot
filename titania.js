@@ -11,21 +11,16 @@ class Titania {
 					let qsa = document.querySelectorAll(target);
 					
 					if (qsa != null && qsa != undefined && qsa.length > 0) {
-						if (qsa.length == 1) {
-							let qs = document.querySelector(target);
-							let selection = new Titania(qs);
+						if (qsa.length == 1) return new Titania(qsa[0]);
+						
+						var list = [];
 
-							return selection;
-						} else {
-							var list = [];
+						qsa.forEach(elem => {
+						let selection = new Titania(elem);
+						list.push(selection);
+						});
 
-							qsa.forEach(elem => {
-							let selection = new Titania(elem);
-							list.push(selection);
-							});
-
-							return list;
-						}
+						return list;
 					} else {
 						return null;
 					}
