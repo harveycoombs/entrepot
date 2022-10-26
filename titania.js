@@ -5,6 +5,7 @@
 */
 class Titania {
 	constructor (em) {
+		if (em instanceof Titania) return em;
 		this.select = function (target=null) {
 			switch (true) {
 				case (typeof target == "string"):
