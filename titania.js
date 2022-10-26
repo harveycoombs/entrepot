@@ -119,6 +119,9 @@ class Titania {
 			copy.outerHTML = node.outerHTML;
 			return copy;
 		};
+		this.around = function (html) {
+			(this.pure).outerHTML = html.replace(/{}/g, (this.pure).outerHTML);
+		}
 		this.search = function (subject) {
 			var ca = Array.from(this.children);
 
