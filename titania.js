@@ -144,7 +144,7 @@ class Titania {
 		    (this.pure).remove();
 		};
 
-		this.empty = function (excludes) {
+		this.empty = function (excludes=[]) {
 		    excludes = excludes.map((e) => { return new Titania(e); });
 
 		    (this.children).forEach((ch) => {
