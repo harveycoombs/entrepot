@@ -6,10 +6,11 @@
 class Titania {
 	constructor (em) {
 		if (em instanceof Titania) return em;
+		
 		this.select = function (target=null) {
 			switch (true) {
 				case (typeof target == "string"):
-					let qsa = document.querySelectorAll(target);
+					let qsa = em.querySelectorAll(target);
 					
 					if (qsa != null && qsa != undefined && qsa.length > 0) {
 						if (qsa.length == 1) return new Titania(qsa[0]);
