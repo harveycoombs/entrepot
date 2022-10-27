@@ -148,7 +148,7 @@ class Titania {
 
 		while (target.parentNode != null || target.parentNode != undefined) {
 			all.push(target);
-			target = target.parentNode;
+			target = new Titania(target.parentNode);
 		}
 
 		return all;
@@ -174,15 +174,15 @@ class Titania {
 	}
 
 	get value() {
-		return (this.pure).innerHTML;
+		return (this.pure).value;
 	} set value(content) {
 		(this.pure).value = content;
 	}
 
 	get text() {
-		return (this.pure).innerHTML;
+		return (this.pure).innerText;
 	} set text(content) {
-		(this.pure).textContent = content;
+		(this.pure).innerText = content;
 	}
 }
 
