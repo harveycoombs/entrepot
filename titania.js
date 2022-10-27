@@ -140,6 +140,19 @@ class Titania {
 					return res;
 			}
 		};
+		this.delete = function () {
+		    (this.pure).remove();
+		};
+
+		this.empty = function (excludes) {
+		    excludes = excludes.map((e) => { return new Titania(e); });
+
+		    (this.children).forEach((ch) => {
+				if (excludes.indexOf(ch) == -1) {
+					ch.delete();
+				}
+		    });
+		};		
 	}
 
 	get origin() {
