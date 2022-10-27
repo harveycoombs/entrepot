@@ -147,8 +147,8 @@ class Titania {
 		var all = [];
 
 		while (target.parentNode != null || target.parentNode != undefined) {
-			all.push(target);
-			target = new Titania(target.parentNode);
+			all.push(new Titania(target));
+			target = target.parentNode;
 		}
 
 		return all;
