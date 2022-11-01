@@ -109,13 +109,42 @@ class Titania {
 				}
 			};
 		}
-		this.after = function (content) {
-			em.innerHTML += content;
+		this.after = function (elem) {
+            (this.pure).insertAfter(elem);
 		};
-		this.before = function (content) {
-			em.innerHTML = (content + em.innerHTML);
+		this.before = function (elem) {
+            (this.pure).insertBefore(elem);
 		};
-		this.delete = (this.pure).remove
+        this.prepend = function (elem) {
+            var p = (this.pure);
+
+            switch (true) {
+                case (elem instanceof Titania):
+                    p.prepend(elem.pure);
+                    break;
+                case (elem instanceof Node):
+                    p.prepend(elem);
+                    break;
+                case (typeof elem == "string"):
+                    p.innerHTML = elem + p.innerHTML;
+                    break;
+            }
+        };
+        this.append = function (elem) {
+            var p = (this.pure);
+
+            switch (true) {
+                case (elem instanceof Titania):
+                    p.append(elem.pure);
+                    break;
+                case (elem instanceof Node):
+                    p.append(elem);
+                    break;
+                case (typeof elem == "string"):
+                    p.innerHTML += elem;
+                    break;
+            }
+        };
 		this.dupe = function () {
 			var copy = document.createElement(this.tag);
 			copy.outerHTML = node.outerHTML;
@@ -301,74 +330,6 @@ class HTTP {
 			body: getr.responseText,
 			status: getr.status
 		};
-	}
-}
-
-class Series {
-	constructor (items=null) {
-		this[0] = (items ?? []);
-		this.add = {
-			list: this[0],
-			first: function (subject) {
-				let pair = (subject instanceof Pair) ? subject : (typeof subject === "object" && !(subject instanceof Pair)) ? new Pair(subject[0], subject[1]) : null; 
-
-				if (pair != null) {
-					this[0].push(this[0][this[0].length]);
-						
-					for (var j = 0; j < this[0].length; j++) {
-						let item = (j == 0) ? subject : this[0][j + 1];
-						this[0][j] = item;
-					}					
-				}
-
-				return pair;
-			},
-			next: function (a, b=null) {
-				switch (true) {
-					case (a instanceof Pair):
-						(this.list).push(a);
-						return a;
-
-					case ((typeof a != "object") && (b != null)):
-						var pr = new Pair(a, b);
-						(this.list).push(pr);
-						return a;
-
-					default:
-						throw new TitaniaException(); //to-do
-				}
-			}
-		};
-		this.find = function (pair) {
-			for (var x = 0; x < this[0].length; x++) {
-				let p = this[0][x];
-
-				if (p.key === pair.key && p.val === pair.val) {
-					return true;
-				} else if (x == this[0].length) {
-					return false;
-				}
-			}
-		};
-		this.drop = function (pair) {
-			for (var x = 0; x < this[0].length; x++) {
-				let p = this[0][x];
-
-				if (p.key === pair.key && p.val === pair.val) {
-					this[0].splice(p, 1);
-					return true;
-				} else if (x == this[0].length) {
-					return false;
-				}
-			}
-		}
-	}
-}
-
-class Pair /*extends Series*/ {
-	constructor (key, val) {
-		this.key = key;
-		this.val = val;
 	}
 }
 
