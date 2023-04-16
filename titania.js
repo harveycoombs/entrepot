@@ -1,7 +1,7 @@
 /*
-	Titania.JS		The multi-faceted & nimble JavaScript library
+	Titania.JS	The multi-faceted & nimble JavaScript library
 	Version 2.0.0.	Written by Harvey Coombs
-	2016-2022		http://titania-js.org/
+	2016-2022
 */
 class Titania {
 	constructor (em) {
