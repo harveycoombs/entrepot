@@ -13,11 +13,9 @@ Titania includes various useful tools & routines for convenience. Other librarie
 Additionally, Titania aims to limit the deprecation of features to ensure the stability of those who include the latest version in their projects.
 
 ### I'm sold! How do I use/learn Titania?
-You can download Titania, at any time, from [this repository](https://github.com/harveycoombs/titania/), or from [titania-js.org](http://titania-js.org/).
+You can download Titania, at any time, from [this repository](https://github.com/harveycoombs/titania/).
 Alternatively, you can include the following script tag in your project:<br/>
-`<script src="http://titania-js.org/releases/latest/titania.js" type="text/javascript" defer></script>`
-
-For information on learning Titania.JS, please see the [Documentation](http://titania-js.org/docs).
+`<script src="http://harveycoombs.com/titania/releases/latest/titania.js" type="text/javascript" crossorigin="anonymous"></script>`
 
 ## Examples
 
