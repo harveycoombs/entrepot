@@ -1,19 +1,19 @@
 /*
-	Titania.JS	The multi-faceted & nimble JavaScript library
-	Version 2.0.0.	Written by Harvey Coombs
-	2016-2022
+	Titania.JS - The multi-faceted & nimble JavaScript library
+	Version 2.0.0. - Written by Harvey Coombs
+	2016-2023
 */
 class Titania {
 	constructor (em) {
 		if (em instanceof Titania) return em;
 		
-		this.select = function (target=null) {
+		this.select = (target=null) => {
 			switch (true) {
-				case (target instanceof String):
+				case (typeof target === "string"):
 					let qsa = em.querySelectorAll(target);
 					
 					if (qsa && qsa.length) {
-						if (qsa.length == 1) return new Titania(qsa[0]);
+						if (qsa.length) return new Titania(qsa[0]);
 						
 						var list = [];
 
@@ -38,10 +38,10 @@ class Titania {
 		this.tag = em.nodeName.toLowerCase();
 		this.height = em.clientHeight;
 		this.width = em.clientWidth;
-		this.listen = function (event, callback) {
+		this.listen = (event, callback) => {
 		    em.addEventListener(event, callback);
 		};
-		this.ignore = function (event=null, callback=null) {
+		this.ignore = (event=null, callback=null) => {
 		    if (!event) {
 		        let all = getEventListeners(em);
 		        
@@ -52,11 +52,14 @@ class Titania {
 				em.removeEventListener(event, callback);
 			}
 		};
+        this.event = (event) => {
+
+        };
 		this.focused = em.focusState;
 		if (t_isValid(em.getAttribute) && t_isValid(em.setAttribute)) {
 			this.drag = em.getAttribute("draggable");
 			this.css = em.getAttribute("style");
-			this.set = function (prop, val) {
+			this.set = (prop, val) => {
 				try {
 					em.setAttribute(prop, val);
 				} catch {
@@ -64,7 +67,7 @@ class Titania {
 				}
 			};
 			this.disabled = em.getAttribute("disabled");
-			this.attribute = function (key, val=null) {
+			this.attribute = (key, val=null) => {
 				if (val && isFunc(em.getAttribute)) {
 					em.setAttribute(key, val);
 				}
@@ -74,7 +77,7 @@ class Titania {
 		}
 		if (t_isValid(em.classList)) {
 			this.classes = Array.from(em.classList);
-			this.apply = function (classlist) {
+			this.apply = (classlist) => {
 				if (classlist instanceof String) {
 					em.classList = classlist;
 					return;
@@ -86,7 +89,7 @@ class Titania {
 					}
 				});
 			};
-			this.shift = function (classlist) {
+			this.shift = (classlist) => {
 				if (classlist instanceof String) {
 					em.classList.remove(classlist);
 					return;
@@ -98,7 +101,7 @@ class Titania {
 					}
 				});
 			};
-			this.has = function (classes) {
+			this.has = (classes) => {
 				if (classes instanceof Array) {
 					var out = [];
 	
@@ -113,13 +116,13 @@ class Titania {
 				}
 			};
 		}
-		this.after = function (elem) {
+		this.after = (elem) => {
             (this.pure).insertAfter(elem);
 		};
-		this.before = function (elem) {
+		this.before = (elem) => {
             (this.pure).insertBefore(elem);
 		};
-        this.prepend = function (elem) {
+        this.prepend = (elem) => {
             let p = (this.pure);
 
             switch (true) {
@@ -134,7 +137,7 @@ class Titania {
                     break;
             }
         };
-        this.append = function (elem) {
+        this.append = (elem) => {
             let p = (this.pure);
 
             switch (true) {
@@ -149,15 +152,15 @@ class Titania {
                     break;
             }
         };
-		this.dupe = function () {
+		this.dupe = () => {
 			let copy = document.createElement(this.tag);
 			copy.outerHTML = node.outerHTML;
 			return copy;
 		};
-		this.around = function (html) {
+		this.around = (html) => {
 			(this.pure).outerHTML = html.replace(/{}/g, (this.pure).outerHTML);
 		}
-		this.search = function (subject) {
+		this.search = (subject) => {
 			let ca = Array.from(this.children);
 
 			switch (true) {
@@ -173,11 +176,11 @@ class Titania {
 					return res;
 			}
 		};
-		this.delete = function () {
+		this.delete = () => {
 		    (this.pure).remove();
 		};
 
-		this.empty = function (excludes=[]) {
+		this.empty = (excludes=[]) => {
 		    excludes = excludes.map((e) => { return new Titania(e); });
 
 		    (this.children).forEach((ch) => {
@@ -251,6 +254,14 @@ class Session {
 
 		return all.find(key);
 	}
+
+    static get keys() {
+        return Object.keys(sessionStorage);
+    }
+
+    static get length() {
+        return sessionStorage.length;
+    }
 }
 
 class Calc {
@@ -329,7 +340,7 @@ class TitaniaException {
 }
 
 Object.defineProperty(Array.prototype, 'fuse', {
-	value: function (source=[]) {
+	value: (source=[]) => {
 		let target = this;
 
 		if (source instanceof Array) {
@@ -346,10 +357,10 @@ Object.defineProperty(Array.prototype, 'fuse', {
 }); 
 
 Object.defineProperty(Array.prototype, 'compare', {
-	value: function (subject=[]) {
+	value: (subject=[]) => {
 		let target = this;
 
-		let total = 0;
+		var total = 0;
 		let matches  = [];
 
 		target.forEach(val => {
