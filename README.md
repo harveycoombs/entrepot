@@ -1,8 +1,4 @@
-<img src="http://harveycoombs.com/titania/assets/titania-logo-alt.png" alt="The Titania Logo" width="250"/>
-
----
-
-Titania is a lightweight, yet powerful JavaScript library.
+# Titania is a lightweight, yet powerful JavaScript library.
 
 ## Frequently Asked Questions
 ### What can Titania do?
