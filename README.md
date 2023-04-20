@@ -47,4 +47,4 @@ item.listen("click", function () {
 });
 ```
 
-More tips, tricks & examples can be found within Titania's [Documentation](http://titania-js.org/docs).
+More tips, tricks & examples can be found within Titania's [Documentation](http://harveycoombs.com/titania/docs).
