@@ -1,9 +1,9 @@
 /*
-	Titania.JS - The multi-faceted & nimble JavaScript library
+	Opt - The multi-faceted & nimble JavaScript library
 	Version 2.0.0. - Written by Harvey Coombs
-	2016-2023
+	2019-2024
 */
-class Titania {
+class Opt {
 	constructor (em) {
 		if (em instanceof Titania) return em;
 		
