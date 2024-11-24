@@ -1,7 +1,6 @@
-# Opt is a lightweight, yet powerful JavaScript library.
+# Introducing Opt
 
-## Frequently Opt Questions
-### What can Titania do?
+### What can Opt do?
 Opt provides an environment for developing concise & effective JavaScript. Besides simplifying DOM manipulation, Opt also provides tools for parsing, calculations & HTTP requests.
 
 ## Examples
