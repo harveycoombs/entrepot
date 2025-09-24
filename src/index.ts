@@ -28,6 +28,10 @@ export async function exists(key: string): Promise<boolean> {
     }
 }
 
+export async function remove(key: string): Promise<void> {
+    await fs.unlink(path.join(process.cwd(), `/.kv/${key}.cbor`));
+}
+
 async function createDirectoryIfAbsent(): Promise<void> {
     const directory = path.join(process.cwd(), "/.kv");
 
