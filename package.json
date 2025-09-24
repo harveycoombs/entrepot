@@ -1,0 +1,24 @@
+{
+  "name": "entrepot-kv",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "tsup src/index.ts --dts --watch",
+    "build": "tsup src/index.ts --dts",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [],
+  "author": "Harvey Coombs",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^24.5.2",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "cbor": "^10.0.11"
+  }
+}
