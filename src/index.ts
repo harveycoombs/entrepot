@@ -6,10 +6,14 @@ import path from "path";
 export async function get(key: string): Promise<string|null> {
     await createDirectoryIfAbsent();
 
-    const raw = await fs.readFile(path.join(process.cwd(), `/.kv/${key}.cbor`));
-    const decoded = await cbor.decodeFirst(raw);
-
-    return decoded?.value?.toString();
+    try {
+        const raw = await fs.readFile(path.join(process.cwd(), `/.kv/${key}.cbor`));
+        const decoded = await cbor.decodeFirst(raw);
+    
+        return decoded?.value?.toString();
+    } catch {
+        return null;
+    }
 }
 
 export async function set(key: string, value: string): Promise<void> {
