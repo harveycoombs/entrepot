@@ -16,6 +16,13 @@ const value = await get("animal");
 console.log(value); // "cat"
 ```
 
+### Deleting a value
+```js
+import { remove } from "entrepot-kv";
+
+await remove("animal");
+```
+
 ### Checking a key exists
 ```js
 import { exists } from "entrepot-kv";
@@ -24,3 +31,10 @@ const valueExists = await exists("animal");
 console.log(valueExists); // true
 ```
 
+### Listing all keys
+```js
+import { keys } from "entrepot-kv";
+
+const keyList = await keys();
+console.log(keyList); // ["animal"]
+```
