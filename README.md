@@ -1,5 +1,5 @@
-# Entrepot
-Entrepot is a library for easy, self-contained KV storage.
+<p align="center"><img src="https://share.surf/uploads/f30d6f84-3f3c-4bbf-8cf9-3bbdc7dc1d1e" width="300" /></p>
+<h1 align="center">Entrepot &ndash; easy, self-contained KV storage.</h1>
 
 ## Usage
 ### 1. Setting a value
