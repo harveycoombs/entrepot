@@ -42,8 +42,9 @@ var cbor = __toESM(require("cbor"));
 var import_path = __toESM(require("path"));
 async function get(key) {
   await createDirectoryIfAbsent();
+  const root = process.env.ENTREPOT_ROOT || process.cwd();
   try {
-    const raw = await fs.readFile(import_path.default.join(process.cwd(), `/.kv/${key}.cbor`));
+    const raw = await fs.readFile(import_path.default.join(root, `/.kv/${key}.cbor`));
     const decoded = await cbor.decodeFirst(raw);
     return decoded?.value?.toString();
   } catch {
@@ -52,30 +53,35 @@ async function get(key) {
 }
 async function set(key, value) {
   await createDirectoryIfAbsent();
+  const root = process.env.ENTREPOT_ROOT || process.cwd();
   const encoded = await cbor.encodeAsync({ key, value });
-  await fs.writeFile(import_path.default.join(process.cwd(), `/.kv/${key}.cbor`), encoded);
+  await fs.writeFile(import_path.default.join(root, `/.kv/${key}.cbor`), encoded);
 }
 async function exists(key) {
+  const root = process.env.ENTREPOT_ROOT || process.cwd();
   try {
-    await fs.access(import_path.default.join(process.cwd(), `/.kv/${key}.cbor`));
+    await fs.access(import_path.default.join(root, `/.kv/${key}.cbor`));
     return true;
   } catch {
     return false;
   }
 }
 async function remove(key) {
-  await fs.unlink(import_path.default.join(process.cwd(), `/.kv/${key}.cbor`));
+  const root = process.env.ENTREPOT_ROOT || process.cwd();
+  await fs.unlink(import_path.default.join(root, `/.kv/${key}.cbor`));
 }
 async function keys() {
+  const root = process.env.ENTREPOT_ROOT || process.cwd();
   try {
-    const files = await fs.readdir(import_path.default.join(process.cwd(), "/.kv"));
+    const files = await fs.readdir(import_path.default.join(root, "/.kv"));
     return files.map((file) => file.replace(".cbor", ""));
   } catch {
     return [];
   }
 }
 async function createDirectoryIfAbsent() {
-  const directory = import_path.default.join(process.cwd(), "/.kv");
+  const root = process.env.ENTREPOT_ROOT || process.cwd();
+  const directory = import_path.default.join(root, "/.kv");
   try {
     await fs.access(directory);
   } catch {
