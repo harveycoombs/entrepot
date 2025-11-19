@@ -1,4 +1,3 @@
-<p align="center"><img src="https://share.surf/uploads/f30d6f84-3f3c-4bbf-8cf9-3bbdc7dc1d1e" width="300" /></p>
 <h1 align="center">Entrepot &ndash; easy, self-contained KV storage.</h1>
 
 ## Usage
@@ -37,4 +36,5 @@ import { keys } from "entrepot-kv";
 
 const keyList = await keys();
 console.log(keyList); // ["animal"]
+
 ```
